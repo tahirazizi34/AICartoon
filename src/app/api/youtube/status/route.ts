@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 // src/app/api/youtube/status/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { withAuth } from '@/lib/session'

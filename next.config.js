@@ -3,17 +3,15 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['@prisma/client', 'fluent-ffmpeg', 'sharp'],
   },
+
+  // Standalone output for Railway Docker deployments
+  output: 'standalone',
+
   // Allow images served from S3/R2
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.r2.dev',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.amazonaws.com',
-      },
+      { protocol: 'https', hostname: '**.r2.dev' },
+      { protocol: 'https', hostname: '**.amazonaws.com' },
     ],
   },
 }

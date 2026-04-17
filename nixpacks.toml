@@ -1,5 +1,4 @@
-# nixpacks.toml
-# Railway uses Nixpacks to build. This installs ffmpeg system dependency.
+# nixpacks.toml — Railway build configuration
 
 [phases.setup]
 nixPkgs = ["ffmpeg", "nodejs_20"]
@@ -9,6 +8,14 @@ cmds = ["npm install"]
 
 [phases.build]
 cmds = ["npx prisma generate", "npm run build"]
+
+# Provide a dummy DATABASE_URL at build time only.
+# The real value comes from Railway's Postgres plugin at runtime.
+[variables]
+DATABASE_URL = "postgresql://build:build@localhost:5432/build"
+SESSION_SECRET = "00000000000000000000000000000000000000000000000000000000000000ff"
+ENCRYPTION_KEY = "00000000000000000000000000000000000000000000000000000000000000ff"
+NEXT_PUBLIC_APP_URL = "https://placeholder.railway.app"
 
 [start]
 cmd = "npx prisma migrate deploy && npm start"

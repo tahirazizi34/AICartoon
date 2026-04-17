@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 // src/app/api/cron/generate/route.ts
 /**
  * Railway Cron Job endpoint.

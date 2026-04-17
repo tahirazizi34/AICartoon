@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 // src/app/api/health/route.ts
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'

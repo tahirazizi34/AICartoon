@@ -1,6 +1,7 @@
 'use client'
+export const dynamic = 'force-dynamic'
 // src/app/settings/page.tsx
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './settings.module.css'
 
@@ -13,7 +14,7 @@ const SCHEDULE_TIMES = [
   '21:00','22:00','23:00',
 ]
 
-export default function SettingsPage() {
+function SettingsInner() {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const [panel, setPanel] = useState<Panel>('youtube')
@@ -411,5 +412,13 @@ function KeyRow({ label, desc, id, value, onChange }: {
         >{show ? 'Hide' : 'Show'}</button>
       </div>
     </div>
+  )
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: 'var(--ink)' }} />}>
+      <SettingsInner />
+    </Suspense>
   )
 }

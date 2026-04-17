@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 // src/app/api/cron/sync-stats/route.ts
 /**
  * Railway Cron: runs nightly to pull updated view/like counts from YouTube.

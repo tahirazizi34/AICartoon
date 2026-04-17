@@ -1,4 +1,5 @@
 'use client'
+export const dynamic = 'force-dynamic'
 // src/app/episodes/[id]/page.tsx
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useParams } from 'next/navigation'
