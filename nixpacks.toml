@@ -10,12 +10,11 @@ cmds = ["npm install"]
 cmds = [
   "npx prisma generate",
   "npm run build",
-  "cp -r public .next/standalone/public",
+  "mkdir -p .next/standalone/public && mkdir -p public && cp -r public/. .next/standalone/public/ || true",
   "cp -r .next/static .next/standalone/.next/static"
 ]
 
 # Dummy values used only during `npm run build` — never at runtime.
-# Railway injects the real values via the Variables tab.
 [variables]
 DATABASE_URL = "postgresql://build:build@localhost:5432/build"
 SESSION_SECRET = "00000000000000000000000000000000000000000000000000000000000000ff"
