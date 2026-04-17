@@ -1,0 +1,49 @@
+/* src/app/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ink:     #0a0a0f;
+  --ink2:    #12121a;
+  --ink3:    #1c1c28;
+  --wire:    #2a2a3a;
+  --wire2:   #3a3a50;
+  --dim:     #6b6b85;
+  --mid:     #9b9bbb;
+  --light:   #d4d4f0;
+  --white:   #f0f0fa;
+  --accent:  #ff5c35;
+  --accent2: #ff8c5a;
+  --gold:    #f5c518;
+  --teal:    #00d4aa;
+  --blue:    #4a7cfc;
+  --radius:  10px;
+}
+
+html, body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+input, button, select, textarea {
+  font-family: inherit;
+}
+
+::selection {
+  background: rgba(255, 92, 53, 0.3);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ink2); }
+::-webkit-scrollbar-thumb { background: var(--wire2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--dim); }
