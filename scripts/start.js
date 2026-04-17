@@ -11,6 +11,20 @@ function sleep(ms) {
 }
 
 async function runMigrations() {
+  const dbUrl = process.env.DATABASE_URL || ''
+
+  // Refuse to run against the build-time dummy value
+  if (!dbUrl || dbUrl.includes('build:build@localhost')) {
+    console.error('[startup] ERROR: DATABASE_URL is missing or still the build-time dummy.')
+    console.error('[startup] Add DATABASE_URL in Railway → your service → Variables.')
+    process.exit(1)
+  }
+
+  const dbHost = (() => {
+    try { return new URL(dbUrl).hostname } catch { return '(unparseable)' }
+  })()
+  console.log(`[startup] Database host: ${dbHost}`)
+
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
       console.log(`[startup] Migration attempt ${attempt}/${MAX_RETRIES}...`)
@@ -18,7 +32,7 @@ async function runMigrations() {
       console.log('[startup] ✓ Migrations complete')
       return
     } catch (err) {
-      console.error(`[startup] Migration attempt ${attempt} failed:`, err.message)
+      console.error(`[startup] Migration attempt ${attempt} failed`)
       if (attempt === MAX_RETRIES) {
         console.error('[startup] All migration attempts failed — exiting')
         process.exit(1)
@@ -40,7 +54,6 @@ async function main() {
 
   await runMigrations()
 
-  // Prefer standalone server (output:'standalone'), fall back to next start
   const standaloneServer = '.next/standalone/server.js'
   let proc
 
