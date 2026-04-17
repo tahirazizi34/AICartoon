@@ -7,10 +7,15 @@ nixPkgs = ["ffmpeg", "nodejs_20"]
 cmds = ["npm install"]
 
 [phases.build]
-cmds = ["npx prisma generate", "npm run build"]
+cmds = [
+  "npx prisma generate",
+  "npm run build",
+  "cp -r public .next/standalone/public",
+  "cp -r .next/static .next/standalone/.next/static"
+]
 
-# Provide a dummy DATABASE_URL at build time only.
-# The real value comes from Railway's Postgres plugin at runtime.
+# Dummy values used only during `npm run build` — never at runtime.
+# Railway injects the real values via the Variables tab.
 [variables]
 DATABASE_URL = "postgresql://build:build@localhost:5432/build"
 SESSION_SECRET = "00000000000000000000000000000000000000000000000000000000000000ff"
@@ -18,4 +23,4 @@ ENCRYPTION_KEY = "00000000000000000000000000000000000000000000000000000000000000
 NEXT_PUBLIC_APP_URL = "https://placeholder.railway.app"
 
 [start]
-cmd = "npx prisma migrate deploy && npm start"
+cmd = "node scripts/start.js"
